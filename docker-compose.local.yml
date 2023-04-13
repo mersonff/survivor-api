@@ -1,0 +1,41 @@
+services:
+  survivor-web:
+    build:
+        context: .
+        dockerfile: Dockerfile.local
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/usr/src/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - HISTFILE=/usr/src/app/log/.bash_history
+    depends_on:
+      - survivor-db
+      - survivor-redis
+
+  survivor-db:
+    image: postgres:15
+    hostname: survivor-db
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  survivor-redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6380:6379"
+
+volumes:
+  pg_data:
+  redis_data:
+  bundle:
