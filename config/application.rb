@@ -22,7 +22,7 @@ module SurvivorApi
     config.logger    = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
 
     config.cache_store = :redis_store, ENV.fetch('REDIS_URL', nil),
-      { namespace: 'survivor::cache' }
+                         { namespace: 'survivor::cache' }
 
     config.api_only = true
   end
