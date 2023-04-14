@@ -4,9 +4,7 @@ on:
     branches: [ "main" ]
 jobs:
   audit:
-    runs-on: ubuntu-
-    container:
-      image: ruby:3.2.0-slim
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

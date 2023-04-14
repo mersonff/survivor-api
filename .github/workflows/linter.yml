@@ -5,8 +5,6 @@ on:
 jobs:
   rubocop_linter:
     runs-on: ubuntu-latest
-    container:
-      image: ruby:3.2.0-slim
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
